@@ -1,68 +1,66 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Personality Assessment</title>
-</head>
-<body>
-    <h1>Personality Assessment</h1>
-    <form id="assessment-form">
-        <div id="questions-container"></div>
-        <button type="submit">Submit</button>
-    </form>
-    <div id="results" style="display:none;"></div>
+1. How do you generally feel about taking charge of a project or group?  
+2. Do you find it easy to motivate others?  
+3. Are you comfortable making decisions without consulting others?  
+4. How do you react to setbacks or failures?  
+5. Do you believe in setting difficult goals?  
+6. How often do you seek feedback on your work?  
+7. Are you confident in presenting your ideas to others?  
+8. How important is it for you to be recognized for your accomplishments?  
+9. Do you believe in being decisive?  
+10. How do you handle competing priorities?  
+11. Do you seek leadership roles even when not assigned?  
+12. How do you approach challenges?  
+13. Do you think persistence is essential for success?  
+14. How do you respond to conflict in a team?  
+15. Do you prefer collaboration or competition?  
 
-    <script>
-        const questions = [
-            { type: 'Der Starke', question: 'Question 1 for Der Starke' },
-            { type: 'Der Starke', question: 'Question 2 for Der Starke' },
-            { type: 'Der Hilfsbereite', question: 'Question 1 for Der Hilfsbereite' },
-            { type: 'Der Hilfsbereite', question: 'Question 2 for Der Hilfsbereite' },
-            { type: 'Der Perfekte', question: 'Question 1 for Der Perfekte' },
-            { type: 'Der Perfekte', question: 'Question 2 for Der Perfekte' },
-            { type: 'Der Strukturierte', question: 'Question 1 for Der Strukturierte' },
-            { type: 'Der Strukturierte', question: 'Question 2 for Der Strukturierte' },
-            // Add all 60 questions in a random order
-        ];
+**Der Hilfsbereite (15 questions)**  
+16. How do you feel about helping others in need?  
+17. Are you willing to go out of your way for a friend?  
+18. Do you prefer working in a team to working alone?  
+19. How do you handle someone asking for your help?  
+20. Are you comfortable with providing emotional support?  
+21. How important is community service to you?  
+22. Do you often volunteer your time for others?  
+23. How do you feel after helping someone?  
+24. Are you empathetic to others' situations?  
+25. How do you handle disappointment when helping others?  
+26. Do you find joy in making others happy?  
+27. How important is it for you to resolve conflicts among friends?  
+28. Are you often considered the peacemaker in your relationships?  
+29. Do you prioritize others' needs over your own?  
+30. How does supporting others impact your well-being?  
 
-        questions.sort(() => Math.random() - 0.5);
+**Der Perfekte (15 questions)**  
+31. How do you set and achieve high standards in your work?  
+32. Are you detail-oriented in your daily tasks?  
+33. How often do you review your work for mistakes?  
+34. Do you believe that perfection is achievable?  
+35. How do you respond to criticism about your work?  
+36. Are you driven by the desire to be the best?  
+37. How do you handle procrastination?  
+38. Are you comfortable asking for help to achieve perfection?  
+39. How do you prioritize quality over speed?  
+40. Do you set personal benchmarks for success?  
+41. How do you adapt when faced with unexpected challenges?  
+42. Are you critical of yourself when goals are not met?  
+43. Do you often revise your work multiple times?  
+44. How do you deal with failure in pursuit of perfection?  
+45. Is it harder for you to delegate tasks?  
 
-        const container = document.getElementById('questions-container');
-        const scores = { 'Der Starke': 0, 'Der Hilfsbereite': 0, 'Der Perfekte': 0, 'Der Strukturierte': 0 };
-
-        questions.forEach((q, index) => {
-            const questionHTML = `<div>
-                <label>${q.question}</label>
-                <select name="question-${index}" >
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                </select>
-            </div>`;
-            container.innerHTML += questionHTML;
-        });
-
-        document.getElementById('assessment-form').onsubmit = function(event) {
-            event.preventDefault();
-            questions.forEach((q, index) => {
-                const value = document.querySelector(`select[name='question-${index}']`).value;
-                scores[q.type] += parseInt(value);
-            });
-            displayResults();
-        };
-
-        function displayResults() {
-            const resultsDiv = document.getElementById('results');
-            resultsDiv.innerHTML = '<h2>Results</h2>';
-            for (const [type, score] of Object.entries(scores)) {
-                resultsDiv.innerHTML += `<p>${type}: ${score}</p>`;
-            }
-            resultsDiv.style.display = 'block';
-        }
-    <\/script>
-</body>
-</html>
+**Der Strukturierte (15 questions)**  
+46. How do you plan your day-to-day activities?  
+47. Are you generally organized in your workspace?  
+48. Do you enjoy making lists and schedules?  
+49. How do you approach complex projects?  
+50. Are you comfortable following strict procedures?  
+51. Do you prefer routine over spontaneity?  
+52. How do you adapt to changes in your plans?  
+53. Are you detail-oriented in your project planning?  
+54. How important is time management to you?  
+55. Do you feel stressed without a plan?  
+56. How do you prioritize tasks when they pile up?  
+57. Are you cautious about making impulsive decisions?  
+58. Do you regularly review your goals and achievements?  
+59. How do you keep track of important dates and deadlines?  
+60. Do you often seek efficiency in your tasks?
