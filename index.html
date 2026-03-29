@@ -1,80 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personality Assessment</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        .question { margin-bottom: 15px; }
-        .results { display: none; margin-top: 20px; }
-    </style>
 </head>
 <body>
-    <h1>Interactive Personality Assessment</h1>
-    <form id="assessmentForm">
-        <div id="questionsContainer"></div>
+    <h1>Personality Assessment</h1>
+    <form id="assessment-form">
+        <div id="questions-container"></div>
         <button type="submit">Submit</button>
     </form>
-    <div class="results" id="resultsContainer"></div>
+    <div id="results" style="display:none;"></div>
 
     <script>
-        // Questions classified by personality types
         const questions = [
-            // Add 60 questions here in the following format:
-            { text: 'Question 1?', type: 'Der Starke' },
-            { text: 'Question 2?', type: 'Der Hilfsbereite' },
-            // ... repeat for all questions ...
+            { type: 'Der Starke', question: 'Question 1 for Der Starke' },
+            { type: 'Der Starke', question: 'Question 2 for Der Starke' },
+            { type: 'Der Hilfsbereite', question: 'Question 1 for Der Hilfsbereite' },
+            { type: 'Der Hilfsbereite', question: 'Question 2 for Der Hilfsbereite' },
+            { type: 'Der Perfekte', question: 'Question 1 for Der Perfekte' },
+            { type: 'Der Perfekte', question: 'Question 2 for Der Perfekte' },
+            { type: 'Der Strukturierte', question: 'Question 1 for Der Strukturierte' },
+            { type: 'Der Strukturierte', question: 'Question 2 for Der Strukturierte' },
+            // Add all 60 questions in a random order
         ];
 
-        // Function to randomize questions
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
-        }
+        questions.sort(() => Math.random() - 0.5);
 
-        // Populate questions randomly
-        function loadQuestions() {
-            const container = document.getElementById('questionsContainer');
-            const shuffledQuestions = shuffle([...questions]);
-            shuffledQuestions.forEach((question, index) => {
-                const questionDiv = document.createElement('div');
-                questionDiv.className = 'question';
-                questionDiv.innerHTML = `<label>${question.text}</label>`;
-                for (let i = 0; i <= 7; i++) {
-                    questionDiv.innerHTML += `<input type='radio' name='question${index}' value='${i}' required>${i}`;
-                }
-                container.appendChild(questionDiv);
-            });
-        }
+        const container = document.getElementById('questions-container');
+        const scores = { 'Der Starke': 0, 'Der Hilfsbereite': 0, 'Der Perfekte': 0, 'Der Strukturierte': 0 };
 
-        // Handle form submission
-        document.getElementById('assessmentForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const results = { 'Der Starke': 0, 'Der Hilfsbereite': 0, 'Der Perfekte': 0, 'Der Strukturierte': 0 };
-            const formData = new FormData(this);
-            for (let [key, value] of formData.entries()) {
-                const questionIndex = key.replace('question', '');
-                const questionType = questions[questionIndex].type;
-                results[questionType] += parseInt(value);
-            }
-            displayResults(results);
+        questions.forEach((q, index) => {
+            const questionHTML = `<div>
+                <label>${q.question}</label>
+                <select name="question-${index}" >
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                </select>
+            </div>`;
+            container.innerHTML += questionHTML;
         });
 
-        // Display results
-        function displayResults(results) {
-            const resultsContainer = document.getElementById('resultsContainer');
-            resultsContainer.innerHTML = `<h2>Results</h2>`;
-            for (const [type, score] of Object.entries(results)) {
-                resultsContainer.innerHTML += `<p>${type}: ${score}</p>`;
-            }
-            resultsContainer.style.display = 'block';
-        }
+        document.getElementById('assessment-form').onsubmit = function(event) {
+            event.preventDefault();
+            questions.forEach((q, index) => {
+                const value = document.querySelector(`select[name='question-${index}']`).value;
+                scores[q.type] += parseInt(value);
+            });
+            displayResults();
+        };
 
-        loadQuestions();
-    </script>
+        function displayResults() {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<h2>Results</h2>';
+            for (const [type, score] of Object.entries(scores)) {
+                resultsDiv.innerHTML += `<p>${type}: ${score}</p>`;
+            }
+            resultsDiv.style.display = 'block';
+        }
+    <\/script>
 </body>
 </html>
